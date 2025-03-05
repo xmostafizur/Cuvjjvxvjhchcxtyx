@@ -141,6 +141,25 @@
             min-width: 150px;
         }
 
+        /* New VIP Button */
+        .vip-button {
+            background: linear-gradient(45deg, #ff6600, #ff9933);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 20px 0;
+            font-size: 18px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.3);
+        }
+
+        .vip-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 102, 0, 0.5);
+        }
+
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -163,34 +182,6 @@
             0% { transform: translateX(-100%) rotate(45deg); }
             100% { transform: translateX(100%) rotate(45deg); }
         }
-
-        .history {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .history-item {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 14px;
-            color: #fff;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-            }
-            .title {
-                font-size: 24px;
-            }
-            .result-box {
-                font-size: 36px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -200,6 +191,10 @@
         <a href="https://t.me/bdtgamef" class="telegram-link" target="_blank">
             Join Telegram 🇧🇩👇 📊
         </a>
+
+        <!-- New VIP Button -->
+        <button class="vip-button" onclick="checkVIPKey()">VIP</button>
+
         <div class="time-display" id="timeDisplay"></div>
         <div class="countdown" id="countdown"></div>
         <div class="result-box" id="resultBox"></div>
@@ -276,6 +271,17 @@
             resultBox.style.animation = 'none';
             resultBox.offsetHeight; // Trigger reflow
             resultBox.style.animation = 'borderGlow 2s infinite';
+        }
+
+        // VIP Key Validation Function
+        function checkVIPKey() {
+            const key = prompt("VIP key প্রদান করুন:");
+            if (key === "@xmostafizur") {
+                alert("আপনি VIP সদস্য হয়ে গেছেন!");
+                // Add any VIP-related actions here.
+            } else {
+                alert("ভুল key! সঠিক key দিন: @xmostafizur");
+            }
         }
 
         // Initial updates
