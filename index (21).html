@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PROFIT ZONE - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(#ffffff22 2px, transparent 2px);
+      background-size: 30px 30px;
+      animation: move 20s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes move {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-30px, -30px); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-box {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 30px;
+      width: 90%;
+      max-width: 380px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+      text-align: center;
+    }
+
+    .login-box h2 {
+      color: #ffffff;
+      margin-bottom: 25px;
+      font-size: 1.5rem;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 40px 12px 45px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    .input-group input::placeholder {
+      color: #ddd;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(to right, #56ccf2, #2f80ed);
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s ease;
+      margin-bottom: 10px;
+    }
+
+    button:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px #2f80ed;
+    }
+
+    .buy-btn {
+      background: transparent;
+      border: 2px solid #fff;
+      color: #fff;
+      margin-top: 10px;
+    }
+
+    .buy-btn:hover {
+      background: #fff;
+      color: #2c5364;
+    }
+
+    .footer-text {
+      margin-top: 15px;
+      color: #ccc;
+      font-size: 0.85rem;
+    }
+
+    .error-message {
+      margin-top: 10px;
+      background: rgba(255, 0, 0, 0.1);
+      color: #ff4d4d;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.4s ease;
+    }
+
+    .error-message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Registration Popup */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: #000;
+      border: 2px solid #2f80ed;
+      border-radius: 15px;
+      padding: 25px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 25px rgba(0,123,255,0.3);
+      color: #fff;
+      z-index: 99;
+      transition: transform 0.3s ease;
+    }
+
+    .popup.show {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .popup h3 {
+      margin-bottom: 15px;
+      text-align: center;
+      font-size: 1.3rem;
+    }
+
+    .popup .input-group {
+      margin-bottom: 15px;
+    }
+
+    .popup .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 18px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    @media (max-width: 480px) {
+      .login-box {
+        padding: 20px;
+      }
+
+      .popup {
+        padding: 20px;
+      }
+
+      button, .input-group input {
+        font-size: 0.95rem;
+      }
+
+      .footer-text {
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-box">
+    <h2>🔐 PROFIT ZONE</h2>
+    <form onsubmit="return validateForm()">
+      <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input type="text" id="username" placeholder="Username" required>
+      </div>
+      <div class="input-group">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="password" placeholder="Password" required>
+      </div>
+      <button type="submit">Login</button>
+      <div id="error" class="error-message">❌ Incorrect username or password.</div>
+    </form>
+
+    <button class="buy-btn" onclick="togglePopup()">Account Buy</button>
+    <div class="footer-text">Powered by Profit Zone © 2025</div>
+  </div>
+
+  <!-- Registration Popup -->
+  <div class="popup" id="popup">
+    <div class="close-btn" onclick="togglePopup()">✖</div>
+    <h3>📝 Create Your Account</h3>
+    <form onsubmit="return goToPayment()">
+      <div class="input-group">
+        <input type="text" placeholder="Full Name" required>
+      </div>
+      <div class="input-group">
+        <input type="text" placeholder="Username" required>
+      </div>
+      <div class="input-group">
+        <input type="password" placeholder="Password" required>
+      </div>
+      <div class="input-group">
+        <input type="tel" placeholder="Phone Number" required>
+      </div>
+
+      <div class="input-group">
+        <label style="color:#fff; display:block; margin-bottom:5px;">
+          লস রিকোভার হবার পর আপনি কি ট্রেডিং থেকে বের হয়ে আসবেন?
+        </label>
+        <select id="exitDecision" required style="width: 100%; padding: 10px; border-radius: 8px; background: rgba(255,255,255,0.2); color: white; border: none;">
+          <option value="">-- সিলেক্ট করুন --</option>
+          <option value="yes">হ্যাঁ</option>
+          <option value="no">না</option>
+        </select>
+      </div>
+
+      <div id="warningText" style="display:none; color: #ff6666; margin-bottom:10px; font-size: 0.95rem; text-align: center; animation: fadeIn 0.5s ease;">
+        ⚠️ আপনি লস রিকোভার করার পর ট্রেডিং না ছাড়লে এটা ব্যবহার করতে পারবেন না।
+      </div>
+
+      <button type="submit">Create Account</button>
+    </form>
+  </div>
+
+  <script>
+    function validateForm() {
+      const username = document.getElementById("username").value.trim().toLowerCase();
+      const password = document.getElementById("password").value.trim().toLowerCase();
+      const errorBox = document.getElementById("error");
+
+      if (username === "sabbir" && password === "notshow") {
+        window.location.href = "https://signal.supertrxwin.com";
+      } else {
+        errorBox.classList.add("show");
+        setTimeout(() => {
+          errorBox.classList.remove("show");
+        }, 3000);
+      }
+      return false;
+    }
+
+    function togglePopup() {
+      const popup = document.getElementById("popup");
+      popup.classList.toggle("show");
+    }
+
+    function goToPayment() {
+      const decision = document.getElementById("exitDecision").value;
+      const warningText = document.getElementById("warningText");
+
+      if (decision === "yes") {
+        window.location.href = "https://payment.supertrxwin.com";
+      } else if (decision === "no") {
+        warningText.style.display = "block";
+      } else {
+        warningText.style.display = "none";
+      }
+
+      return false;
+    }
+  </script>
+</body>
+</html>
